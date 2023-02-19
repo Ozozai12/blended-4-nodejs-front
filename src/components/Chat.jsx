@@ -41,8 +41,19 @@ export const Chat = () => {
   const handleSendMessage = (event) => {
     event.preventDefault();
 
-    socket.current.emit("newMessage", { name: currentUser, text: message });
-    setMessageList([...messageList, { name: currentUser, text: message }]);
+    socket.current.emit("newMessage", {
+      author: currentUser,
+      text: message,
+      time: Date.now().toString(),
+    });
+    setMessageList([
+      ...messageList,
+      {
+        author: currentUser,
+        text: message,
+        time: Date.now().toString(),
+      },
+    ]);
   };
 
   return (
@@ -76,7 +87,8 @@ export const Chat = () => {
       <ul>
         {messageList.map((item, idx) => (
           <li key={idx}>
-            <span>{item.name}</span>: <span>{item.text}</span>
+            <span>{item.author}</span>:<span>{item.text}</span>
+            <p>{item.time}</p>
           </li>
         ))}
       </ul>
