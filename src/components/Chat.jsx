@@ -15,7 +15,8 @@ export const Chat = () => {
       console.log(usersNumber);
       setOnlineUsers(usersNumber);
     });
-    socket.current.on("getAllMessages", (allMessages) => {
+    socket.current.on("AllMessages", (allMessages) => {
+      console.log(allMessages);
       setMessageList(allMessages);
     });
     return () => {
