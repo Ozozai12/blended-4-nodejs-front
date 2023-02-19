@@ -2,7 +2,7 @@ import io from "socket.io-client";
 import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 
-const socket = { current: io("https://gigachat-back.onrender.com") };
+const socket = { current: io("https://blendet-1-practice.onrender.com") };
 
 export const Chat = () => {
   const [onlineUsers, setOnlineUsers] = useState(0);
@@ -14,6 +14,9 @@ export const Chat = () => {
     socket.current.on("changeOnline", (usersNumber) => {
       console.log(usersNumber);
       setOnlineUsers(usersNumber);
+    });
+    socket.current.on("getAllMessages", (allMessages) => {
+      setMessageList(allMessages);
     });
     return () => {
       socket.current.off("disconnect", currentUser);
